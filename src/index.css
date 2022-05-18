@@ -1,0 +1,36 @@
+html {
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+
+body {
+    width: 100%;
+    display: table-cell;
+}
+
+#root {
+    display: flex;
+    height: 100%;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+@font-face {
+    font-family: 'Lexend';
+    src: local('Lexend'), url(./assets/fonts/Lexend.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AzeretMono';
+    src: local('AzeretMono'), url(./assets/fonts/AzeretMono.ttf) format('truetype');
+}

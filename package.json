@@ -1,0 +1,33 @@
+{
+  "name": "purrfect-color-picker",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "colord": "^2.9.2",
+    "framer-motion": "^6.3.3",
+    "react": "^17.0.2",
+    "react-color": "^2.19.3",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "^17.0.2",
+    "rooks": "^5.11.0",
+    "styled-components": "^5.3.5",
+    "styled-system": "^5.1.5"
+  },
+  "devDependencies": {
+    "@types/color": "^3.0.3",
+    "@types/react": "^17.0.0",
+    "@types/react-color": "^3.0.6",
+    "@types/react-copy-to-clipboard": "^5.0.2",
+    "@types/react-dom": "^17.0.0",
+    "@types/styled-components": "^5.1.25",
+    "@types/styled-system": "^5.1.15",
+    "@vitejs/plugin-react": "^1.3.0",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.9"
+  }
+}

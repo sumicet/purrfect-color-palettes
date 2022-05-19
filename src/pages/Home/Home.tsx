@@ -1,24 +1,23 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import Box from '../../components/Box/Box';
 import ColorSquare from '../../components/ColorSquare/ColorSquare';
 import Grid from '../../components/Grid/Grid';
 // @ts-ignore
-import { colord, extend } from 'colord';
-import { HuePicker } from 'react-color';
+import { Colord, colord, extend } from 'colord';
 import { Text } from '../../components/Text/Text';
 import { useDebouncedValue } from 'rooks';
 import mixPlugin from 'colord/plugins/mix';
 import harmoniesPlugin from 'colord/plugins/harmonies';
 import Flex from '../../components/Flex/Flex';
 import Center from '../../components/Center/Center';
+import ColorPicker from '../../components/ColorPicker/ColorPicker';
 
 extend([mixPlugin]);
 extend([harmoniesPlugin]);
 
 interface Color {
-    hex: string;
-    isLight: boolean;
-    belongsTo: string;
+    color: Colord;
+    belongsTo: Colord;
 }
 
 const actions = [
@@ -37,34 +36,35 @@ const actions = [
 type Action = typeof actions[number];
 
 function Home() {
-    const [color, setColor] = useState<string>('#4f00fff2');
-    const [alpha, setAlpha] = useState<number>(0);
+    const [color, setColor] = useState<Colord>(colord('#4f00fff2'));
 
     const [debouncedColor] = useDebouncedValue(color, 100);
 
     const incrementor = 0.05;
-    const generatedColorCount = 10;
+    const generatedColorCount = 8;
 
     const getColors = useCallback(
         (action: Action) => {
             const arr: Color[] = [];
             if (!debouncedColor) {
-                return [];
+                return [] as Color[];
             }
 
-            let result = debouncedColor;
+            let result: Colord = debouncedColor;
 
             if (action === 'alpha') {
                 let currentAlphaValue = 1 - incrementor;
                 [...Array(generatedColorCount)].forEach(() => {
                     // @ts-ignore
-                    const newColor = colord(result)[action](currentAlphaValue).toHex();
-                    if (arr[arr.length - 1] && newColor === arr[arr.length - 1].hex) {
-                        return [];
+                    const newColor = result[action](currentAlphaValue);
+                    if (
+                        arr[arr.length - 1] &&
+                        newColor.toHex() === arr[arr.length - 1].color.toHex()
+                    ) {
+                        return [] as Color[];
                     }
                     arr.push({
-                        hex: newColor,
-                        isLight: colord(newColor).isLight(),
+                        color: newColor,
                         belongsTo: debouncedColor,
                     });
                     result = newColor;
@@ -74,13 +74,15 @@ function Home() {
                 let currentMixValue = incrementor;
                 [...Array(generatedColorCount)].forEach(() => {
                     // @ts-ignore
-                    const newColor = colord(result)[action]('#ed3466', currentMixValue).toHex();
-                    if (arr[arr.length - 1] && newColor === arr[arr.length - 1].hex) {
-                        return [];
+                    const newColor = result[action]('#ed3466', currentMixValue);
+                    if (
+                        arr[arr.length - 1] &&
+                        newColor.toHex() === arr[arr.length - 1].color.toHex()
+                    ) {
+                        return [] as Color[];
                     }
                     arr.push({
-                        hex: newColor,
-                        isLight: colord(newColor).isLight(),
+                        color: newColor,
                         belongsTo: debouncedColor,
                     });
                     result = newColor;
@@ -89,43 +91,42 @@ function Home() {
             } else if (action === 'rotate') {
                 [...Array(generatedColorCount)].forEach(() => {
                     // @ts-ignore
-                    const newColor = colord(result)
-                        [action](incrementor * 100)
-                        .toHex();
-                    if (arr[arr.length - 1] && newColor === arr[arr.length - 1].hex) {
-                        return [];
+                    const newColor = result[action](incrementor * 100);
+                    if (
+                        arr[arr.length - 1] &&
+                        newColor.toHex() === arr[arr.length - 1].color.toHex()
+                    ) {
+                        return [] as Color[];
                     }
                     arr.push({
-                        hex: newColor,
-                        isLight: colord(newColor).isLight(),
+                        color: newColor,
                         belongsTo: debouncedColor,
                     });
                     result = newColor;
                 });
             } else if (action === 'tints' || action === 'shades' || action === 'tones') {
+                // console.log(debouncedColor[action](generatedColorCount));
                 return [
                     ...new Set(
-                        colord(debouncedColor)
-                            [action](generatedColorCount)
-                            .map(c =>
-                                JSON.stringify({
-                                    hex: c.toHex(),
-                                    isLight: c.isLight(),
-                                    belongsTo: debouncedColor,
-                                })
-                            )
+                        debouncedColor[action](generatedColorCount).map(color => color.toHex())
                     ),
-                ].map(elem => JSON.parse(elem));
+                ].map(color => ({
+                    color: colord(color),
+                    belongsTo: debouncedColor,
+                }));
             } else {
                 [...Array(generatedColorCount)].forEach(() => {
                     // @ts-ignore
-                    const newColor = colord(result)[action](incrementor).toHex();
-                    if (arr[arr.length - 1] && newColor === arr[arr.length - 1].hex) {
-                        return [];
+                    const newColor = result[action](incrementor);
+                    if (
+                        arr[arr.length - 1] &&
+                        newColor.toHex() === arr[arr.length - 1].color.toHex()
+                    ) {
+                        return [] as Color[];
                     }
+
                     arr.push({
-                        hex: newColor,
-                        isLight: colord(newColor).isLight(),
+                        color: newColor,
                         belongsTo: debouncedColor,
                     });
                     result = newColor;
@@ -146,32 +147,38 @@ function Home() {
                 Consistent AF.
             </Text>
 
-            <Grid gridTemplateColumns='max-content 1fr' width='100%'>
-                <Center flex={1} flexDirection='column' marginRight={60}>
-                    <HuePicker color={color} onChange={c => setColor(c.hex)} />
-                </Center>
+            <Center flex={1} width='100%'>
+                <Flex flexWrap='row-wrap' width='fit-content' flex={1}>
+                    <Center flex={1} flexDirection='column' marginRight={60}>
+                        <ColorPicker
+                            color={color.toHex()}
+                            onChange={(c: any) => {
+                                setColor(colord(c.hex));
+                            }}
+                        />
+                    </Center>
 
-                <Grid gridGap={20} width='100%'>
-                    {actions.map(action => (
-                        <div key={action}>
-                            <Box marginBottom={10}>
-                                <Text variant='code' color='light'>
-                                    {action.toUpperCase()}
-                                </Text>
-                            </Box>
-                            <Grid gridTemplateColumns='repeat(auto-fit, 80px)' gridGap={10}>
-                                {[...getColors(action)].map(({ hex, isLight, belongsTo }) => (
-                                    <ColorSquare
-                                        key={`${hex}-${belongsTo}`}
-                                        color={hex}
-                                        isLight={isLight}
-                                    />
-                                ))}
-                            </Grid>
-                        </div>
-                    ))}
-                </Grid>
-            </Grid>
+                    <Grid gridGap={20} width='100%'>
+                        {actions.map(action => (
+                            <div key={action}>
+                                <Box marginBottom={10}>
+                                    <Text variant='code' color='light'>
+                                        {action.toUpperCase()}
+                                    </Text>
+                                </Box>
+                                <Grid gridTemplateColumns='repeat(auto-fit, 80px)' gridGap={10}>
+                                    {[...getColors(action)].map(({ color, belongsTo }) => (
+                                        <ColorSquare
+                                            key={`${color.toHex()}-${belongsTo.toHex()}`}
+                                            color={color}
+                                        />
+                                    ))}
+                                </Grid>
+                            </div>
+                        ))}
+                    </Grid>
+                </Flex>
+            </Center>
         </Flex>
     );
 }

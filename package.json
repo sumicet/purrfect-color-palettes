@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-hover-card": "^0.1.5",
     "colord": "^2.9.2",
     "framer-motion": "^6.3.3",
     "react": "^17.0.2",

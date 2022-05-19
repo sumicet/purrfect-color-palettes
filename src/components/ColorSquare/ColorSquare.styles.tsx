@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { background, backgroundColor, BackgroundProps } from 'styled-system';
 import Center from '../Center/Center';
 import { motion } from 'framer-motion';
+import * as Hover from '@radix-ui/react-hover-card';
 
 export const ColorSquare = styled.div<BackgroundProps>`
     cursor: pointer;
@@ -40,4 +41,10 @@ export const CenterColorText = styled(Center)`
     right: 0;
 
     pointer-events: none;
+`;
+
+export const HoverContent = styled(Hover.Content)`
+    background: ${props => props.theme.color.light};
+    padding: ${props => props.theme.spacing.spacing16};
+    border-radius: ${props => props.theme.borderRadius};
 `;

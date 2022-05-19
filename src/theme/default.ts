@@ -84,13 +84,9 @@ export const theme = {
     },
     borderRadius: '8px',
     spacing: {
-        1: '4px',
-        2: '8px',
-        3: '12px',
-        4: '16px',
-        5: '20px',
-        6: '32px',
-        7: '64px',
+        spacing08: '8px',
+        spacing16: '16px',
+        spacing32: '32px',
     },
     size: {
         buttonHeight: '42px',

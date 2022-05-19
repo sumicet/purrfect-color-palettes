@@ -17,8 +17,8 @@ function ColorPicker({ hex, hsl, hsv, onChange }: any) {
                     height={300}
                     marginBottom={theme.spacing.spacing16}
                 >
-                    {/* @ts-ignore */}
                     <Saturation
+                        // @ts-ignore
                         hsl={hsl}
                         hsv={hsv}
                         onChange={onChange}

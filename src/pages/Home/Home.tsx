@@ -148,7 +148,7 @@ function Home() {
             </Text>
 
             <Center flex={1} width='100%'>
-                <Flex flexWrap='row-wrap' width='fit-content' flex={1}>
+                <Flex width='fit-content' flex={1}>
                     <Center flex={1} flexDirection='column' marginRight={60}>
                         <ColorPicker
                             color={color.toHex()}

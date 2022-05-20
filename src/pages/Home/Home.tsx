@@ -31,7 +31,7 @@ export const actions = [
 ] as const;
 
 function Home() {
-    const [color, setColor] = useState<Colord>(colord('#4f00fff2'));
+    const [color, setColor] = useState<Colord>(colord('#522CB8'));
     const theme = useTheme();
     const [value, setValue] = useState<string>('');
     const [mixColor, setMixColor] = useState<Colord>(colord('#ed3466'));

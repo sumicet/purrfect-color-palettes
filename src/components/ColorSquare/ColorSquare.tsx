@@ -8,7 +8,7 @@ import * as Styled from './ColorSquare.styles';
 import { useTheme } from 'styled-components';
 import { Colord } from 'colord';
 
-function ColorSquare({ color }: { color: string }) {
+function ColorSquare({ color, isLight }: { color: string; isLight: boolean }) {
     const animateColorSquare = useAnimation();
     const [showCopied, setShowCopied] = useState<boolean>(false);
     const theme = useTheme();
@@ -57,7 +57,7 @@ function ColorSquare({ color }: { color: string }) {
                     </Styled.ColorSquareClickEffect>
 
                     <Styled.CenterColorText flex={1}>
-                        <Text variant='code' color='light'>
+                        <Text variant='code' color={isLight ? 'dark' : 'light'}>
                             {!showCopied && color}
                             {showCopied && 'Copied'}
                         </Text>

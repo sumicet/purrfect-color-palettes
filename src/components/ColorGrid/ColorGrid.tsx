@@ -124,6 +124,12 @@ export function ColorGrid({ color, mixColor }: { color: Colord; mixColor: string
         <Grid gridGap={20} width='fit-content'>
             {actions.map(action => {
                 const colors = getColors(action);
+                if (
+                    colors.length === 1 &&
+                    colors[0].color.toHex() === colors[0].belongsTo.toHex()
+                ) {
+                    return;
+                }
                 return (
                     <div key={action}>
                         <Box marginBottom={10}>
@@ -137,7 +143,7 @@ export function ColorGrid({ color, mixColor }: { color: Colord; mixColor: string
                                     key={`${color.toHex()}-${belongsTo.toHex()}`}
                                     marginRight={index !== colors.length - 1 ? 10 : 0}
                                 >
-                                    <ColorSquare color={color.toHex()} />
+                                    <ColorSquare color={color.toHex()} isLight={color.isLight()} />
                                 </Box>
                             ))}
                         </Flex>

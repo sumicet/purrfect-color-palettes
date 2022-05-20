@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { background, backgroundColor, BackgroundProps } from 'styled-system';
+import { BackgroundProps } from 'styled-system';
 import Center from '../Center/Center';
 import { motion } from 'framer-motion';
 import * as Hover from '@radix-ui/react-hover-card';
+import Flex from '../Flex/Flex';
 
 export const ColorSquare = styled.div<BackgroundProps>`
     cursor: pointer;
@@ -38,7 +39,14 @@ export const CenterColorText = styled(Center)`
 `;
 
 export const HoverContent = styled(Hover.Content)`
-    background: ${props => props.theme.color.light};
+    background: ${props => props.theme.color.input};
     padding: ${props => props.theme.spacing.spacing16};
     border-radius: ${props => props.theme.borderRadius};
+`;
+
+export const RgbaTextFlex = styled(Flex)`
+    color: ${props => props.theme.color.light};
+    &:hover {
+        color: ${props => props.theme.color.lightHover};
+    }
 `;

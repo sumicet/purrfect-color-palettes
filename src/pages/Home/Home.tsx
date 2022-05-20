@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '../../components/Box/Box';
-import ColorSquare from '../../components/ColorSquare/ColorSquare';
-import Grid from '../../components/Grid/Grid';
 // @ts-ignore
 import { Colord, colord, extend } from 'colord';
 import { Text } from '../../components/Text/Text';
-import { useDebounce, useDebouncedValue } from 'rooks';
+import { useDebouncedValue } from 'rooks';
 import mixPlugin from 'colord/plugins/mix';
 import Flex from '../../components/Flex/Flex';
 import Center from '../../components/Center/Center';
@@ -30,7 +28,7 @@ export const actions = [
     'tones',
 ] as const;
 
-function Home() {
+function Home({ setBackgroundColor }: { setBackgroundColor: (backgroundColor: string) => void }) {
     const [color, setColor] = useState<Colord>(colord('#522CB8'));
     const theme = useTheme();
     const [value, setValue] = useState<string>('');
@@ -81,7 +79,21 @@ function Home() {
                             <Input value={value} onChange={setValue} />
                         </Box>
 
-                        <Button onClick={() => setMixColor(color)}>Set mix color</Button>
+                        <Flex>
+                            <Flex marginRight='10px' flex={1}>
+                                <Button onClick={() => setMixColor(color)} width='100%'>
+                                    Set mix color
+                                </Button>
+                            </Flex>
+                            <Flex flex={1}>
+                                <Button
+                                    onClick={() => setBackgroundColor(color.toHex())}
+                                    width='100%'
+                                >
+                                    Set background
+                                </Button>
+                            </Flex>
+                        </Flex>
                     </Flex>
                 </Box>
 

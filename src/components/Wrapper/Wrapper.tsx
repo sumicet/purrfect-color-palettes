@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-    background-color: #161618;
+    background-color: ${props => props.theme.color.background};
     width: 100%;
     height: 100%;
     display: flex;
@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 `;
 
 export const PageWrapper = styled.div`
-    background-color: #161618;
+    background-color: ${props => props.theme.color.background};
     width: 100%;
     height: 100%;
     display: flex;

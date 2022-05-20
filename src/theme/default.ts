@@ -10,6 +10,7 @@ const breakpoint = {
 };
 
 export const theme = {
+    type: 'dark',
     breakpoint,
     mediaQuery: {
         xs: `@media screen and (min-width: ${breakpoint.xs}px)`,
@@ -25,6 +26,11 @@ export const theme = {
         input: '#2e2e33',
         button: '#4c5ae5',
         buttonHover: '#4252ef',
+        lightHover: '#ffffffcc',
+        darkHover: '#000000cc',
+        background: '#161618',
+        inputLighter: '#3a3a40',
+        lightDarker: '#f2f2f2',
     },
     font: {
         presets: {
@@ -81,6 +87,23 @@ export const theme = {
         transition: {
             default: (property: string) => `transition: ${property} 0.1s ease-in-out`,
         },
+    },
+};
+
+export const lightTheme = {
+    ...theme,
+    type: 'light',
+    color: {
+        dark: 'white',
+        light: 'black',
+        input: '#f7f7f7',
+        button: '#4c5ae5',
+        buttonHover: '#4252ef',
+        lightHover: '#000000cc',
+        darkHover: '#ffffffcc',
+        background: '#d9d9da',
+        inputLighter: '#e1e1e1',
+        lightDarker: '#3a3a40',
     },
 };
 

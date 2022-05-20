@@ -20,26 +20,11 @@ export const theme = {
         xxl: `@media screen and (min-width: ${breakpoint.xxl}px)`,
     },
     color: {
-        neutralDark: '#121212',
-        neutralMedium1: '#1C1C1C',
-        neutralMedium2: '#242424',
-        neutralMedium25: '#212121',
-        hoverNeutralMedium1: '#2B2B2B',
-        hoverNeutralMedium2: '#313131',
-        hoverNeutralMedium25: '#2F2F2F',
-        text1: '#D1D0D1',
-        text2: '#949494',
-        text3: '#636363',
-        hoverText1: '#FFFFFF',
-        hoverText2: '#B6B6B6',
-        hoverText3: '#7F7F7F',
-        gradient: 'linear-gradient(315deg, #E0E330, #33FFB6)',
-        gradientSimple: '315deg, #33FFB6, #E0E330',
-        gradient1: '#E0E330',
-        gradient2: '#33FFB6',
-        line: '#373737',
         dark: 'black',
         light: 'white',
+        input: '#2e2e33',
+        button: '#4c5ae5',
+        buttonHover: '#4252ef',
     },
     font: {
         presets: {
@@ -87,9 +72,10 @@ export const theme = {
         spacing08: '8px',
         spacing16: '16px',
         spacing32: '32px',
+        spacing64: '64px',
     },
     size: {
-        buttonHeight: '42px',
+        colorSquare: 80,
     },
     animation: {
         transition: {

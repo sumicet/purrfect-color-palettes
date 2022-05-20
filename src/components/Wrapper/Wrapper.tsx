@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: ${props => props.theme.spacing.spacing64} 0;
 `;
 
 export const PageWrapper = styled.div`

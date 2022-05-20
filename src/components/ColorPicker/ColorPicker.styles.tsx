@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
-export const ColorPicker = styled.div<{ color: string }>`
-    .hseonm > div,
-    .saturation-white,
-    .saturation-black {
+export const ColorPicker = styled.div`
+    .saturation-wrapper * {
         border-radius: ${props => props.theme.borderRadius} !important;
     }
 
@@ -36,6 +34,6 @@ export const ColorPicker = styled.div<{ color: string }>`
         border: 2px solid ${props => props.theme.color.light};
         width: 24px;
         height: 24px;
-        background: ${props => props.color};
+        /* background: ${props => props.color}; */
     }
 `;

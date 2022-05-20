@@ -8,7 +8,7 @@ import * as Styled from './ColorSquare.styles';
 import { useTheme } from 'styled-components';
 import { Colord } from 'colord';
 
-function ColorSquare({ color }: { color: Colord }) {
+function ColorSquare({ color }: { color: string }) {
     const animateColorSquare = useAnimation();
     const [showCopied, setShowCopied] = useState<boolean>(false);
     const theme = useTheme();
@@ -23,26 +23,42 @@ function ColorSquare({ color }: { color: Colord }) {
         }, 2000);
     };
 
-    const hex = color.toHex();
-
     return (
         <HoverCard.Root openDelay={100} closeDelay={100}>
             <HoverCard.Trigger>
-                <Square dimension='80px'>
-                    <CopyToClipboard text={hex}>
-                        <Styled.ColorSquare background={hex} onClick={handleCopyClick} />
+                <Square dimension={`${theme.size.colorSquare}px`}>
+                    <CopyToClipboard text={color}>
+                        <Styled.ColorSquare>
+                            <div
+                                style={{
+                                    background: color,
+                                    width: '100%',
+                                    height: '100%',
+                                    borderRadius: theme.borderRadius,
+                                }}
+                                onClick={handleCopyClick}
+                            />
+                        </Styled.ColorSquare>
                     </CopyToClipboard>
                     <Styled.ColorSquareClickEffect
-                        background={hex}
                         animate={animateColorSquare}
                         transition={{
                             duration: 0.5,
                         }}
-                    />
+                    >
+                        <div
+                            style={{
+                                background: color,
+                                width: '100%',
+                                height: '100%',
+                                borderRadius: theme.borderRadius,
+                            }}
+                        />
+                    </Styled.ColorSquareClickEffect>
 
                     <Styled.CenterColorText flex={1}>
-                        <Text variant='code' color={color.isLight() ? 'dark' : 'light'}>
-                            {!showCopied && hex}
+                        <Text variant='code' color='light'>
+                            {!showCopied && color}
                             {showCopied && 'Copied'}
                         </Text>
                     </Styled.CenterColorText>
@@ -50,7 +66,7 @@ function ColorSquare({ color }: { color: Colord }) {
             </HoverCard.Trigger>
             <Styled.HoverContent sideOffset={10}>
                 <HoverCard.Arrow fill={theme.color.light} />
-                <Text variant='code'>{color.toRgbString()}</Text>
+                <Text variant='code'>{color}</Text>
             </Styled.HoverContent>
         </HoverCard.Root>
     );

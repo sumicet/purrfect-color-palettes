@@ -20,19 +20,29 @@ export function PalettePreview({ preview }: { preview: Preview }) {
                 padding='20px'
             >
                 <Center flex={1} flexDirection='column'>
-                    <Square
-                        dimension={theme.size.colorPicker / 2}
+                    <Box
                         background={preview.box}
                         borderRadius={theme.borderRadius}
                         marginBottom={10}
                         border={`3px solid ${preview.border}`}
+                        padding='20px'
                     >
-                        <Center flex={1}>
-                            <Text variant='code' customColor={preview.text}>
-                                Sample text
+                        <Center flex={1} flexDirection='column'>
+                            <Box marginBottom='20px'>
+                                <Text variant='paragraphBig' customColor={preview.title}>
+                                    Spring ocean
+                                </Text>
+                            </Box>
+                            <Box marginBottom='20px'>
+                                <Text variant='paragraph' customColor={preview.paragraph}>
+                                    Swaying gently
+                                </Text>
+                            </Box>
+                            <Text variant='paragraphSmall' customColor={preview.caption}>
+                                All day long
                             </Text>
                         </Center>
-                    </Square>
+                    </Box>
                 </Center>
             </Box>
         </Flex>

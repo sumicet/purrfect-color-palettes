@@ -1,10 +1,15 @@
+import { CSSProperties } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Paste } from '../../assets/icons/Paste/Paste';
 import Box from '../Box/Box';
 import Flex from '../Flex/Flex';
 import { Input, InputProps } from '../Input/Input';
+import { Label } from '../Label/Label';
 
-interface PasteInputProps extends InputProps {}
+export interface PasteInputProps extends InputProps {
+    label?: string;
+    inputStyle?: CSSProperties;
+}
 
 const PasteContainer = styled(Flex)`
     svg {
@@ -25,7 +30,7 @@ const PasteContainer = styled(Flex)`
     }
 `;
 
-export function PasteInput({ ...props }: PasteInputProps) {
+export function PasteInput({ label, inputStyle, ...props }: PasteInputProps) {
     const theme = useTheme();
     const { onChange } = props;
 
@@ -35,23 +40,31 @@ export function PasteInput({ ...props }: PasteInputProps) {
     };
 
     return (
-        <Flex>
-            <Input
-                {...props}
-                style={{
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 0,
-                }}
-            />
-            <PasteContainer
-                background={theme.color.input}
-                alignItems='center'
-                paddingRight='10px'
-                paddingLeft='10px'
-                onClick={handlePaste}
-            >
-                <Paste />
-            </PasteContainer>
+        <Flex flexDirection='column' width='100%'>
+            {label && (
+                <Box marginBottom='5px'>
+                    <Label label={label} />
+                </Box>
+            )}
+            <Flex>
+                <Input
+                    {...props}
+                    style={{
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
+                        ...inputStyle,
+                    }}
+                />
+                <PasteContainer
+                    background={theme.color.input}
+                    alignItems='center'
+                    paddingRight='10px'
+                    paddingLeft='10px'
+                    onClick={handlePaste}
+                >
+                    <Paste />
+                </PasteContainer>
+            </Flex>
         </Flex>
     );
 }

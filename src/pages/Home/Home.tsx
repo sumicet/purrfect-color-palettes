@@ -14,6 +14,7 @@ import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
 import { PalettePreview } from '../../components/PalettePreview/PalettePreview';
 import { PasteInput } from '../../components/PasteInput/PasteInput';
+import { PasteColorInput } from '../../components/PasteColorInput/PasteInput';
 
 extend([mixPlugin]);
 
@@ -33,38 +34,48 @@ export const actions = [
 export interface Preview {
     wrapper: string;
     box: string;
-    text: string;
     border: string;
+    title: string;
+    paragraph: string;
+    caption: string;
 }
 
-function Home({ setBackgroundColor }: { setBackgroundColor: (backgroundColor: string) => void }) {
+function Home({
+    backgroundColor,
+    setBackgroundColor,
+}: {
+    backgroundColor: string;
+    setBackgroundColor: (backgroundColor: string) => void;
+}) {
     const [color, setColor] = useState<Colord>(colord('#522CB8'));
     const theme = useTheme();
-    const [value, setValue] = useState<string>('');
-    const [mixColor, setMixColor] = useState<Colord>(colord('#ed3466'));
+    const [colorInput, setColorInput] = useState<string>('');
+    const [mixColorInput, setMixColorInput] = useState<string>('#ed3466');
     const [preview, setPreview] = useState<Preview>({
         wrapper: '#bdabeb',
         box: '#140c1d',
-        text: '#ffffff',
+        title: '#ffffff',
         border: '#3e00e4',
+        paragraph: '#ffffffbf',
+        caption: '#de3270',
     });
 
-    const [debouncedValue] = useDebouncedValue(value, 100);
+    const [debouncedColorInput] = useDebouncedValue(colorInput, 100);
 
     useEffect(() => {
-        if (!debouncedValue) {
+        if (!debouncedColorInput) {
             return;
         }
 
-        const newColor = colord(debouncedValue);
+        const newColor = colord(debouncedColorInput);
 
         if (newColor.isValid()) {
             setColor(newColor);
         }
-    }, [debouncedValue]);
+    }, [debouncedColorInput]);
 
     useEffect(() => {
-        setValue(color.toHex().toUpperCase());
+        setColorInput(color.toHex().toUpperCase());
     }, [color]);
 
     return (
@@ -90,33 +101,90 @@ function Home({ setBackgroundColor }: { setBackgroundColor: (backgroundColor: st
                             />
                         </Box>
 
-                        <Box marginBottom={10} width='100%'>
-                            <PasteInput value={value} onChange={setValue} />
+                        <Box marginBottom='10px' width='100%'>
+                            <PasteColorInput
+                                label='selected color'
+                                value={colorInput}
+                                onChange={setColorInput}
+                            />
+                        </Box>
+                        <Box marginBottom='10px' width='100%'>
+                            <PasteColorInput
+                                label='mix color'
+                                value={mixColorInput}
+                                onChange={setMixColorInput}
+                            />
+                        </Box>
+                        <Box marginBottom='32px' width='100%'>
+                            <PasteInput
+                                label='website background'
+                                value={backgroundColor}
+                                onChange={setBackgroundColor}
+                            />
                         </Box>
 
-                        <Flex marginBottom={20}>
-                            <Flex marginRight='10px' flex={1}>
-                                <Button onClick={() => setMixColor(color)} width='100%'>
-                                    Set mix color
-                                </Button>
-                            </Flex>
-                            <Flex flex={1}>
-                                <Button
-                                    onClick={() => setBackgroundColor(color.toHex())}
-                                    width='100%'
-                                >
-                                    Set background
-                                </Button>
-                            </Flex>
-                        </Flex>
-
-                        <Box>
+                        <Box marginBottom={20}>
                             <PalettePreview preview={preview} />
+                        </Box>
+                        <Box marginBottom='10px' width='100%'>
+                            <PasteColorInput
+                                label='preview background'
+                                // TODO utils valid color or fallback color
+                                value={preview.wrapper}
+                                onChange={value =>
+                                    setPreview(oldPreview => ({ ...oldPreview, wrapper: value }))
+                                }
+                            />
+                        </Box>
+                        <Box marginBottom='10px' width='100%'>
+                            <PasteColorInput
+                                label='preview border'
+                                value={preview.border}
+                                onChange={value =>
+                                    setPreview(oldPreview => ({ ...oldPreview, border: value }))
+                                }
+                            />
+                        </Box>
+                        <Box marginBottom='10px' width='100%'>
+                            <PasteColorInput
+                                label='preview box'
+                                value={preview.box}
+                                onChange={value =>
+                                    setPreview(oldPreview => ({ ...oldPreview, box: value }))
+                                }
+                            />
+                        </Box>
+                        <Box marginBottom='10px' width='100%'>
+                            <PasteColorInput
+                                label='preview title'
+                                value={preview.title}
+                                onChange={value =>
+                                    setPreview(oldPreview => ({ ...oldPreview, title: value }))
+                                }
+                            />
+                        </Box>
+                        <Box marginBottom='10px' width='100%'>
+                            <PasteColorInput
+                                label='preview paragraph'
+                                value={preview.paragraph}
+                                onChange={value =>
+                                    setPreview(oldPreview => ({ ...oldPreview, paragraph: value }))
+                                }
+                            />
+                        </Box>
+                        <Box marginBottom='10px' width='100%'>
+                            <PasteColorInput
+                                label='preview text'
+                                value={preview.caption}
+                                onChange={value =>
+                                    setPreview(oldPreview => ({ ...oldPreview, caption: value }))
+                                }
+                            />
                         </Box>
                     </Flex>
                 </Box>
 
-                <ColorGrid color={color} mixColor={mixColor.toHex()} />
+                <ColorGrid color={color} mixColor={mixColorInput} />
             </Flex>
         </Flex>
     );

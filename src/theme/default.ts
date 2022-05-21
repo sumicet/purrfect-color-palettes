@@ -34,6 +34,11 @@ export const theme = {
     },
     font: {
         presets: {
+            paragraphBig: {
+                size: '24px',
+                family: 'Lexend',
+                weight: 800,
+            },
             paragraph: {
                 size: '16px',
                 family: 'Lexend',
@@ -42,7 +47,7 @@ export const theme = {
             paragraphSmall: {
                 size: '12px',
                 family: 'Lexend',
-                weight: 400,
+                weight: 100,
             },
             code: {
                 size: '12px',

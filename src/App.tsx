@@ -26,7 +26,10 @@ function App() {
         >
             <Wrapper>
                 <PageWrapper>
-                    <Home setBackgroundColor={setBackgroundColor} />
+                    <Home
+                        backgroundColor={backgroundColor}
+                        setBackgroundColor={setBackgroundColor}
+                    />
                 </PageWrapper>
             </Wrapper>
         </ThemeProvider>

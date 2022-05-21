@@ -23,6 +23,7 @@ const StyledInput = styled(Text)<StyledInputProps>`
 export interface InputProps extends BorderProps {
     value: string;
     onChange: (input: string) => void;
+    style?: CSSProperties;
 }
 
 export function Input({ value, onChange, ...props }: InputProps) {

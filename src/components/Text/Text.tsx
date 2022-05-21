@@ -26,7 +26,7 @@ export const Text = styled.p<TextProps>`
     line-height: ${props => props.lineHeight || props.theme.font.lineHeight};
 
     ${props =>
-        (props.color || props.customColor) &&
-        `color: ${props.customColor ?? props.theme.color[props.color]}`};
+        (props.customColor || props.color) &&
+        `color: ${props.customColor || (props.color && props.theme.color[props.color])}`};
     ${props => props.margin && `margin: ${props.margin}`};
 `;

@@ -30,7 +30,7 @@ export const theme = {
         darkHover: '#000000cc',
         background: '#161618',
         inputLighter: '#3a3a40',
-        lightDarker: '#f2f2f2',
+        lightDarker: '#cccccc',
     },
     font: {
         presets: {
@@ -102,7 +102,7 @@ export const lightTheme = {
     color: {
         dark: 'white',
         light: 'black',
-        input: '#f7f7f7',
+        input: '#eaeaea',
         button: '#4c5ae5',
         buttonHover: '#4252ef',
         lightHover: '#000000cc',

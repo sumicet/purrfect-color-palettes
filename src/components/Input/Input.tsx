@@ -23,10 +23,9 @@ const StyledInput = styled(Text)<StyledInputProps>`
 export interface InputProps extends BorderProps {
     value: string;
     onChange: (input: string) => void;
-    style?: CSSProperties;
 }
 
-export function Input({ value, onChange, style }: InputProps) {
+export function Input({ value, onChange, ...props }: InputProps) {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         onChange(event.target.value);
     };
@@ -38,7 +37,7 @@ export function Input({ value, onChange, style }: InputProps) {
             color='light'
             value={value}
             onChange={handleChange}
-            style={style}
+            {...props}
         />
     );
 }

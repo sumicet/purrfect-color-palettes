@@ -14,7 +14,7 @@ import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
 import { PalettePreview } from '../../components/PalettePreview/PalettePreview';
 import { PasteInput } from '../../components/PasteInput/PasteInput';
-import { PasteColorInput } from '../../components/PasteColorInput/PasteInput';
+import { PasteColorInput } from '../../components/PasteColorInput/PasteColorInput';
 
 extend([mixPlugin]);
 
@@ -84,7 +84,7 @@ function Home({
                 <Text variant='header' color='light'>
                     Purrfect Color Palettes
                 </Text>
-                <Text variant='paragraph' color='light'>
+                <Text variant='paragraph' color='lightDarker'>
                     Consistent AF.
                 </Text>
             </Flex>

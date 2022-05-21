@@ -82,6 +82,7 @@ export const theme = {
     },
     size: {
         colorSquare: 80,
+        colorPicker: 280,
     },
     animation: {
         transition: {

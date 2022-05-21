@@ -12,6 +12,8 @@ import { ColorGrid } from '../../components/ColorGrid/ColorGrid';
 import { useTheme } from 'styled-components';
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
+import { PalettePreview } from '../../components/PalettePreview/PalettePreview';
+import { PasteInput } from '../../components/PasteInput/PasteInput';
 
 extend([mixPlugin]);
 
@@ -28,11 +30,24 @@ export const actions = [
     'tones',
 ] as const;
 
+export interface Preview {
+    wrapper: string;
+    box: string;
+    text: string;
+    border: string;
+}
+
 function Home({ setBackgroundColor }: { setBackgroundColor: (backgroundColor: string) => void }) {
     const [color, setColor] = useState<Colord>(colord('#522CB8'));
     const theme = useTheme();
     const [value, setValue] = useState<string>('');
     const [mixColor, setMixColor] = useState<Colord>(colord('#ed3466'));
+    const [preview, setPreview] = useState<Preview>({
+        wrapper: '#bdabeb',
+        box: '#140c1d',
+        text: '#ffffff',
+        border: '#3e00e4',
+    });
 
     const [debouncedValue] = useDebouncedValue(value, 100);
 
@@ -76,10 +91,10 @@ function Home({ setBackgroundColor }: { setBackgroundColor: (backgroundColor: st
                         </Box>
 
                         <Box marginBottom={10} width='100%'>
-                            <Input value={value} onChange={setValue} />
+                            <PasteInput value={value} onChange={setValue} />
                         </Box>
 
-                        <Flex>
+                        <Flex marginBottom={20}>
                             <Flex marginRight='10px' flex={1}>
                                 <Button onClick={() => setMixColor(color)} width='100%'>
                                     Set mix color
@@ -94,6 +109,10 @@ function Home({ setBackgroundColor }: { setBackgroundColor: (backgroundColor: st
                                 </Button>
                             </Flex>
                         </Flex>
+
+                        <Box>
+                            <PalettePreview preview={preview} />
+                        </Box>
                     </Flex>
                 </Box>
 

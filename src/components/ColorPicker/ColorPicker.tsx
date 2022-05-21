@@ -9,7 +9,7 @@ import * as Styled from './ColorPicker.styles';
 
 function ColorPicker({ hex, hsl, hsv, onChange }: any) {
     const theme = useTheme();
-    const size = '280px';
+    const size = theme.size.colorPicker;
 
     return (
         <Styled.ColorPicker>

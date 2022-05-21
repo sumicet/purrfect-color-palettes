@@ -1,7 +1,11 @@
+import { CSSProperties } from 'react';
 import styled from 'styled-components';
-import { Text } from '../Text/Text';
+import { border, BorderProps, borderTop } from 'styled-system';
+import { Text, TextProps } from '../Text/Text';
 
-const StyledInput = styled(Text)`
+interface StyledInputProps extends TextProps, BorderProps {}
+
+const StyledInput = styled(Text)<StyledInputProps>`
     padding: 10px;
     border: 0px;
     border-radius: ${props => props.theme.borderRadius};
@@ -12,9 +16,17 @@ const StyledInput = styled(Text)`
     &:focus {
         outline: 0px;
     }
+
+    ${border};
 `;
 
-export function Input({ value, onChange }: { value: string; onChange: (input: string) => void }) {
+export interface InputProps extends BorderProps {
+    value: string;
+    onChange: (input: string) => void;
+    style: CSSProperties;
+}
+
+export function Input({ value, onChange, style }: InputProps) {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         onChange(event.target.value);
     };
@@ -26,6 +38,7 @@ export function Input({ value, onChange }: { value: string; onChange: (input: st
             color='light'
             value={value}
             onChange={handleChange}
+            style={style}
         />
     );
 }

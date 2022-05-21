@@ -10,6 +10,7 @@ export interface TextProps extends Omit<HTMLAttributes<HTMLParagraphElement>, 'c
     lineHeight?: number;
     margin?: string;
     color?: Color;
+    customColor?: string;
 }
 
 export const Text = styled.p<TextProps>`
@@ -23,6 +24,9 @@ export const Text = styled.p<TextProps>`
         (props.family && props.theme.font.family[props.family]) ||
         props.theme.font.presets[props.variant || 'paragraph'].family};
     line-height: ${props => props.lineHeight || props.theme.font.lineHeight};
-    ${props => props.color && `color: ${props.theme.color[props.color]}`};
+
+    ${props =>
+        (props.color || props.customColor) &&
+        `color: ${props.customColor ?? props.theme.color[props.color]}`};
     ${props => props.margin && `margin: ${props.margin}`};
 `;

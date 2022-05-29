@@ -5,8 +5,8 @@ export function Paste({ color }: { color?: Color }) {
     const theme = useTheme();
     return (
         <svg
-            width='18'
-            height='22'
+            width={theme.size.icon.default}
+            height={theme.size.icon.default}
             viewBox='0 0 18 22'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'

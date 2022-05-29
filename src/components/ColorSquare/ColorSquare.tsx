@@ -1,6 +1,5 @@
-import { useAnimation } from 'framer-motion';
+import { animate, useAnimation } from 'framer-motion';
 import { memo } from 'react';
-import * as HoverCard from '@radix-ui/react-hover-card';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Square } from '../Square/Square';
 import { Text } from '../Text/Text';
@@ -9,9 +8,17 @@ import { useTheme, withTheme } from 'styled-components';
 import { colord } from 'colord';
 import Box from '../Box/Box';
 import { useCopied } from '../../hooks/useCopied';
+import { HoverCard } from '../HoverCard';
 
-function ColorSquare({ color, isLight }: { color: string; isLight: boolean }) {
-    const animateColorSquare = useAnimation();
+function ColorSquare({
+    color,
+    isLight,
+    side = 'middle',
+}: {
+    color: string;
+    isLight: boolean;
+    side?: 'left' | 'right' | 'middle';
+}) {
     const theme = useTheme();
 
     const textColor =
@@ -26,17 +33,17 @@ function ColorSquare({ color, isLight }: { color: string; isLight: boolean }) {
     const rgbaCopy = useCopied(rgba);
     const hslCopy = useCopied(hsl);
 
-    const handleCopyClick = () => {
-        animateColorSquare.set({ scale: 1, opacity: 1 });
-        animateColorSquare.start({ scale: 1.5, opacity: 0 });
-
-        hexCopy.copy();
-    };
+    const borderRadius =
+        side === 'middle'
+            ? 0
+            : side === 'left'
+            ? `${theme.borderRadius} 0 0 ${theme.borderRadius}`
+            : `0 ${theme.borderRadius} ${theme.borderRadius} 0`;
 
     return (
-        <HoverCard.Root openDelay={50} closeDelay={50}>
+        <HoverCard.Root>
             <HoverCard.Trigger>
-                <Square dimension={`${theme.size.colorSquare}px`}>
+                <Styled.StyledSquare dimension={`${theme.size.colorSquare}px`}>
                     <CopyToClipboard text={color}>
                         <Styled.ColorSquare>
                             <div
@@ -44,56 +51,56 @@ function ColorSquare({ color, isLight }: { color: string; isLight: boolean }) {
                                     background: color,
                                     width: '100%',
                                     height: '100%',
-                                    borderRadius: theme.borderRadius,
+                                    borderRadius,
                                 }}
-                                onClick={handleCopyClick}
+                                onClick={hexCopy.copy}
                             />
                         </Styled.ColorSquare>
                     </CopyToClipboard>
-                    <Styled.ColorSquareClickEffect
-                        animate={animateColorSquare}
-                        transition={{
-                            duration: 0.5,
+                    <Styled.ColorSquare
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            boxShadow: `0 0 0 0 ${color}`,
                         }}
                     >
                         <div
                             style={{
-                                background: color,
+                                background: 'transparent',
                                 width: '100%',
-                                height: '100%',
-                                borderRadius: theme.borderRadius,
+                                height: `${theme.size.colorSquare}px`,
+                                borderRadius,
                             }}
                         />
-                    </Styled.ColorSquareClickEffect>
+                    </Styled.ColorSquare>
 
-                    <Styled.CenterColorText flex={1}>
+                    <Styled.CenterColorText flex={1} style={{ zIndex: 2 }}>
                         <Text variant='code' color={textColor}>
                             {hexCopy.text}
                         </Text>
                     </Styled.CenterColorText>
-                </Square>
+                </Styled.StyledSquare>
             </HoverCard.Trigger>
-            <Styled.HoverContent sideOffset={10}>
-                <HoverCard.Arrow fill={theme.color.input} />
+            <Styled.HoverContent>
+                <HoverCard.Arrow />
                 {[
                     { text: rgba, copy: rgbaCopy },
                     { text: hsl, copy: hslCopy },
                 ].map(({ text, copy }) => (
                     <Box marginBottom='10px'>
-                        <CopyToClipboard text={text}>
-                            <Styled.RgbaTextFlex
-                                padding='10px'
-                                background={theme.color.inputLighter}
-                                borderRadius={theme.borderRadius}
-                                style={{ cursor: 'pointer' }}
-                                onClick={copy.copy}
-                                minWidth={210}
-                                alignItems='center'
-                                justifyContent='center'
-                            >
-                                <Text variant='code'>{copy.text}</Text>
-                            </Styled.RgbaTextFlex>
-                        </CopyToClipboard>
+                        <Styled.RgbaTextFlex
+                            padding='10px'
+                            background={theme.color.inputLighter}
+                            borderRadius={theme.borderRadius}
+                            style={{ cursor: 'pointer' }}
+                            onClick={copy.copy}
+                            minWidth={210}
+                            alignItems='center'
+                            justifyContent='center'
+                        >
+                            <Text variant='code'>{copy.text}</Text>
+                        </Styled.RgbaTextFlex>
                     </Box>
                 ))}
                 <Box marginBottom='10px'>

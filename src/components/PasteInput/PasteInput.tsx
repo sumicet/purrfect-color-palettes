@@ -12,11 +12,6 @@ export interface PasteInputProps extends InputProps {
 }
 
 const PasteContainer = styled(Flex)`
-    svg {
-        max-width: 16px;
-        max-height: 16px;
-    }
-
     cursor: pointer;
     border-top-right-radius: ${props => props.theme.borderRadius};
     border-bottom-right-radius: ${props => props.theme.borderRadius};

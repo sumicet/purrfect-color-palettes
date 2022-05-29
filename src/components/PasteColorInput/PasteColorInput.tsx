@@ -17,8 +17,8 @@ const StyledBox = styled(Box)`
     cursor: pointer;
 
     svg {
-        max-width: 12px;
-        max-height: 12px;
+        max-width: ${props => props.theme.size.icon.small};
+        max-height: ${props => props.theme.size.icon.small};
     }
 
     &:hover {

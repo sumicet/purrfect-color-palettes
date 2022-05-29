@@ -25,6 +25,10 @@ a {
     text-decoration: none;
 }
 
+ul {
+    list-style-type: none;
+}
+
 @font-face {
     font-family: 'Lexend';
     src: local('Lexend'), url(./assets/fonts/Lexend.ttf) format('truetype');

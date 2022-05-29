@@ -1,6 +1,7 @@
 import { colord } from 'colord';
 import { useEffect, useState } from 'react';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
+import { Header } from './components/Header/Header';
 import { PageWrapper, Wrapper } from './components/Wrapper/Wrapper';
 import Home from './pages/Home/Home';
 import { lightTheme, theme } from './theme/default';
@@ -25,6 +26,7 @@ function App() {
             }}
         >
             <Wrapper>
+                <Header />
                 <PageWrapper>
                     <Home
                         backgroundColor={backgroundColor}

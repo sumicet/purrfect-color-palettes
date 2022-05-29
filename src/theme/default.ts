@@ -55,8 +55,8 @@ export const theme = {
                 weight: 400,
             },
             header: {
-                size: '32px',
-                family: 'Lexend',
+                size: '20px',
+                family: 'AzeretMono',
                 weight: 400,
             },
         },
@@ -88,11 +88,18 @@ export const theme = {
     size: {
         colorSquare: 80,
         colorPicker: 280,
+        icon: {
+            small: '12px',
+            default: '16px',
+        },
     },
     animation: {
         transition: {
             default: (property: string) => `transition: ${property} 0.1s ease-in-out`,
         },
+    },
+    shadow: {
+        default: '0px 0px 14px 0px rgba(0, 0, 0, 0.2)',
     },
 };
 

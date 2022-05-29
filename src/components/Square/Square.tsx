@@ -30,7 +30,7 @@ const StyledSquare = styled(Box)<StyledSquareProps>`
     ${border}
 `;
 
-interface SquareProps extends StyledSquareProps, BoxProps, BorderProps {
+export interface SquareProps extends StyledSquareProps, BoxProps, BorderProps {
     children?: ReactNode;
 }
 

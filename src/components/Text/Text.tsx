@@ -2,7 +2,8 @@ import { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { Color, FontFamily, FontPresets, FontSize, FontWeight } from '../../theme/default';
 
-export interface TextProps extends Omit<HTMLAttributes<HTMLParagraphElement>, 'color'> {
+export interface TextProps
+    extends Omit<HTMLAttributes<HTMLParagraphElement>, 'color' | 'onChange'> {
     variant?: FontPresets;
     size?: FontSize;
     weight?: FontWeight;

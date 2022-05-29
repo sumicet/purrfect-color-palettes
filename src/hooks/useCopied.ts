@@ -3,7 +3,8 @@ import { useState } from 'react';
 export function useCopied(main: string) {
     const [text, setText] = useState<string>(main);
 
-    const copy = () => {
+    const copy = async () => {
+        await navigator.clipboard.writeText(main);
         setText('Copied');
 
         setTimeout(() => {
